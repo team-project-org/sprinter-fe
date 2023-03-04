@@ -1,4 +1,4 @@
-# React Ainize Boilerplate
+# Sprint Front-End
 
 ## How to use?
 
