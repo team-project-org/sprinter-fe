@@ -1,4 +1,4 @@
-# Sprint Front-End
+# Sprint FrontEnd
 
 ## How to use?
 
