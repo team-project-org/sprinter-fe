@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from "react";
 import { IntlProvider } from "react-intl";
 import CommonRouter from "./CommonRouter";
+import NavBar from '@/components/NavBar';
 import { BrowserRouter as Router } from "react-router-dom";
 
 import {
@@ -14,6 +15,7 @@ const App: FunctionComponent<any> = () => {
   return (
     <IntlProvider locale={lang} messages={messages[lang]}>
       <Router>
+        <NavBar />
         <CommonRouter />
       </Router>
     </IntlProvider>
