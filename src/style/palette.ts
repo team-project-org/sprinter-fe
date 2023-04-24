@@ -1,10 +1,14 @@
 const palette = {
-  primary: '',
-  secondary: '',
-  dark: '#777777',
-  darkGrey: '#333333',
-  grey: '#f6f7f9',
+  primary: '#601AC3',
+  secondary: '#bfa3e7',
+  dark: '#130527',
+  darkGrey: '#777777',
+  grey: '#939090',
+  lightgrey: '#f6f7f9',
+  shadowgrey: '#dbdbdb',
   white: '#ffffff',
-}
+  mint: '#2ED6BE',
+};
+
 
 export default palette
