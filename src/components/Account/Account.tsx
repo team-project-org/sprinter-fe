@@ -33,14 +33,14 @@ const Account: FunctionComponent<IAccountProps> = () => {
     } else if (isEmpty(account)) {
       return <Spin size={'small'} />
     } else {
-      const { email, name, roleType } = account
+      const { username, profile_name } = account
       return (
-				<Badge.Ribbon text={roleType}>
+				<Badge.Ribbon text={"안녕하세요"}>
 					<Card
             title={<FlexCenter>
               <Avatar icon={<UserOutlined />} />
               <span style={{ marginLeft: 5 }}>
-                {email}
+                {username}
               </span>
             </FlexCenter>}
             headStyle={{ paddingRight: "100px" }}
@@ -49,7 +49,7 @@ const Account: FunctionComponent<IAccountProps> = () => {
             ]}
 						size="small"
 					>
-						{`이름 : ${name}`}
+						{`이름 : ${profile_name}`}
 					</Card>
 				</Badge.Ribbon>
       );

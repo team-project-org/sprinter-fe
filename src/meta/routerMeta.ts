@@ -16,6 +16,7 @@ const routerMeta: RouterMetaTypes = {
   Home: { path: '/' },
   Peer: { title: 'PEER 모집', path: '/peer' },
   About: ['/about', '/test'],
+  Register: { path: '/register' },
   TestForm: { path: '/testform' },
 }
 
