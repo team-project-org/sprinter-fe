@@ -24,8 +24,8 @@ const SignIn: FunctionComponent<ISignInProps> = (props) => {
   const onFinish = useCallback(
     (values: any) => {
       console.log("Success:", values);
-      const { userName, password, remember } = values;
-      login(userName, password).then((token: any) => {
+      const { username, password, remember } = values;
+      login(username, password).then((token: any) => {
         // const { token } = data;
         console.log("");
         setToken(token);
@@ -47,9 +47,9 @@ const SignIn: FunctionComponent<ISignInProps> = (props) => {
 			autoComplete="off"
 		>
 			<Form.Item
-				label="E-mail"
-				name="email"
-				rules={[{ required: true, message: "Please input your email!" }]}
+				label="ID"
+				name="username"
+				rules={[{ required: true, message: "Please input your ID!" }]}
 			>
 				<Input />
 			</Form.Item>

@@ -1,10 +1,10 @@
 import axiosInstance from '@/api/AxiosInstance';
 import { Account } from 'meta/accountMeta';
 
-const login = (userName: string, password: string) =>
+const login = (username: string, password: string) =>
   axiosInstance
-    .post('/auth/sign-in', {
-      userName,
+    .post('/login', {
+      username,
       password,
     })
     .then((res: any) => {
@@ -22,7 +22,7 @@ const getAccount = () =>
 
 const register = (account: Account) => {
   console.log('register', account);
-  return axiosInstance.post('/auth/sign-up', account).then((res: any) => {
+  return axiosInstance.post('/signUp', account).then((res: any) => {
     const { data } = res;
     console.log('register data', data);
     return data;
