@@ -4,7 +4,9 @@ import { useSetRecoilState } from 'recoil';
 import { token as tokenState } from '@/state';
 import FlexCenter from '@/components/FlexCenter';
 import { useNavigate } from 'react-router-dom';
+import { account } from '@/api';
 
+const { login } = account;
 
 interface ISignInProps {}
 
@@ -22,14 +24,14 @@ const SignIn: FunctionComponent<ISignInProps> = (props) => {
   const onFinish = useCallback(
     (values: any) => {
       console.log("Success:", values);
-      const { email, password, remember } = values;
-      // login(email, password).then((data: any) => {
-      //   const { token } = data;
-      //   console.log("");
-      //   setToken(token);
-      //   localStorage.setItem("jwt", token);
-      //   navigate("/");
-      // });
+      const { username, password, remember } = values;
+      login(username, password).then((token: any) => {
+        // const { token } = data;
+        console.log("");
+        setToken(token);
+        localStorage.setItem("jwt", token);
+        navigate("/");
+      });
     },
     [navigate, setToken]
   );
@@ -45,9 +47,9 @@ const SignIn: FunctionComponent<ISignInProps> = (props) => {
 			autoComplete="off"
 		>
 			<Form.Item
-				label="E-mail"
-				name="email"
-				rules={[{ required: true, message: "Please input your email!" }]}
+				label="ID"
+				name="username"
+				rules={[{ required: true, message: "Please input your ID!" }]}
 			>
 				<Input />
 			</Form.Item>
