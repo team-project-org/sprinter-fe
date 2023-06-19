@@ -1,4 +1,4 @@
-const API_ENDPOINT = "http://13.124.178.210:9090"
+const API_ENDPOINT = process.env.REACT_APP_HOST
 
 export default {
   API_ENDPOINT
