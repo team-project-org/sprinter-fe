@@ -22,7 +22,7 @@ const getAccount = () =>
 
 const register = (account: Account) => {
   console.log('register', account);
-  return axiosInstance.post('/signUp', account).then((res: any) => {
+  return axiosInstance.post('/sign-up', account).then((res: any) => {
     const { data } = res;
     console.log('register data', data);
     return data;
