@@ -1,10 +1,12 @@
 import React, { FunctionComponent, useCallback } from "react";
 import { Form, Input, Button, Checkbox } from "antd";
 import { useSetRecoilState } from 'recoil';
-import { token as tokenState } from '@/state';
+import { token as tokenState, refreshToken as refreshTokenState } from '@/state';
 import FlexCenter from '@/components/FlexCenter';
 import { useNavigate } from 'react-router-dom';
 import { account } from '@/api';
+import { JWT_KEY } from "@/state/token";
+import { REFRESH_KEY } from "@/state/refreshToken";
 
 const { login } = account;
 
@@ -17,23 +19,25 @@ const onFinishFailed = (errorInfo: any) => {
 
 const SignIn: FunctionComponent<ISignInProps> = (props) => {
   const navigate = useNavigate();
-
-
   const setToken = useSetRecoilState(tokenState)
-
+  const setRefreshToken = useSetRecoilState(refreshTokenState)
   const onFinish = useCallback(
     (values: any) => {
       console.log("Success:", values);
-      const { username, password, remember } = values;
-      login(username, password).then((token: any) => {
-        // const { token } = data;
-        console.log("");
-        setToken(token);
-        localStorage.setItem("jwt", token);
-        navigate("/");
+      const { username, password } = values;
+      login(username, password).then(({ id, message, success, authorization, authorizationRefresh }: any) => {
+				if (success) {
+					console.log(`id: ${id}, message: ${message}`);
+					setToken(authorization);
+					setRefreshToken(authorizationRefresh);
+					localStorage.setItem(JWT_KEY, authorization);
+					localStorage.setItem(REFRESH_KEY, authorization);
+					// navigate("/");
+					window.location.href = '/'
+				}
       });
     },
-    [navigate, setToken]
+    [setRefreshToken, setToken]
   );
 
   return (

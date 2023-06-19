@@ -8,9 +8,13 @@ const login = (username: string, password: string) =>
       password,
     })
     .then((res: any) => {
-      const { data } = res;
+      const { data, headers } = res;
+      const { authorization, 'authorization-refresh': authorizationRefresh } = headers;
       console.log('login data', data);
-      return data;
+      console.log('login res', res);
+      console.log('authorization', authorization);
+      console.log('authorization-refresh', authorizationRefresh);
+      return { ...data, authorization, authorizationRefresh };
     });
 
 const getAccount = () =>

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import createAuthRefreshInterceptor from 'axios-auth-refresh';
 import { apiMeta } from "@/meta";
+import { JWT_KEY } from '@/state/token';
 
 const { API_ENDPOINT } = apiMeta
 
@@ -24,7 +25,7 @@ axiosInstance.interceptors.request.use((request: any) => {
 });
 
 const refreshAuthLogic = (failedRequest: any) => {
-  localStorage.removeItem('jwt');
+  localStorage.removeItem(JWT_KEY);
   return Promise.resolve();
 };
 
