@@ -1,5 +1,6 @@
 import axiosInstance from '@/api/AxiosInstance';
 import { Account } from 'meta/accountMeta';
+import { gql, useQuery } from '@apollo/react-hooks';
 
 const login = (username: string, password: string) =>
   axiosInstance
@@ -17,12 +18,16 @@ const login = (username: string, password: string) =>
       return { ...data, authorization, authorizationRefresh };
     });
 
-const getAccount = () =>
-  axiosInstance.get('/user').then((res: any) => {
-    const { data } = res;
-    console.log('account data', data);
-    return data;
-  });
+const GET_ACCOUNT_QUERY = gql`
+  query {
+    getMember {
+      id
+      username
+      profile_name
+      role_type_list
+    }
+  }
+`;
 
 const register = (account: Account) => {
   console.log('register', account);
@@ -36,5 +41,5 @@ const register = (account: Account) => {
 export default {
   login,
   register,
-  getAccount,
+  GET_ACCOUNT_QUERY,
 };

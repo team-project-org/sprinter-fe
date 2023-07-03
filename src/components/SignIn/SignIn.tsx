@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { account } from '@/api';
 import { JWT_KEY } from "@/state/token";
 import { REFRESH_KEY } from "@/state/refreshToken";
+import { setContext } from "apollo-link-context";
 
 const { login } = account;
 
