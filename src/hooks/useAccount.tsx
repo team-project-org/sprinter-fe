@@ -5,13 +5,13 @@ import { account } from "@/api";
 import { useQuery } from "@apollo/client";
 import tokenState from '@/state/token';
 
-const { GET_ACCOUNT_QUERY } = account
+const { GET_ME_QUERY } = account
 
 export const useAccount = () => {
   const token = useRecoilValue<any>(tokenState);
   const [account, setAccount] = useRecoilState<any>(accountState);
 
-  const { loading, error, data } = useQuery(GET_ACCOUNT_QUERY, { variables: token });
+  const { loading, error, data } = useQuery(GET_ME_QUERY, { variables: token });
 
   useEffect(() => {
     console.log('token', token)

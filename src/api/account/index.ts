@@ -17,15 +17,15 @@ const login = (username: string, password: string) =>
       console.log('authorization', authorization);
       console.log('authorization-refresh', authorizationRefresh);
       if (!isEmpty(authorization)) {
-        axiosInstance.defaults.headers['Authorization'] = `${authorization}`
-        axiosInstance.defaults.headers['Authorization-refresh'] = `${authorizationRefresh}`
+        axiosInstance.defaults.headers.authorization = `${authorization}`
+        axiosInstance.defaults.headers['authorization-refresh'] = `${authorizationRefresh}`
       }
       return { ...data, authorization, authorizationRefresh };
     });
 
-const GET_ACCOUNT_QUERY = gql`
-  query getMember {
-    getMember {
+const GET_ME_QUERY = gql`
+  query getMe {
+    getMe {
       id
       username
       profile_name
@@ -46,5 +46,5 @@ const register = (account: Account) => {
 export default {
   login,
   register,
-  GET_ACCOUNT_QUERY,
+  GET_ME_QUERY,
 };
