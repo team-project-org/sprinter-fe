@@ -18,6 +18,7 @@ const routerMeta: RouterMetaTypes = {
   About: ['/about', '/test'],
   Register: { path: '/register' },
   TestForm: { path: '/testform' },
+  Post: { path: '/post' },
 }
 
 export default routerMeta
