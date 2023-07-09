@@ -2,7 +2,8 @@ import React, { FunctionComponent, useMemo } from "react";
 import { IntlProvider } from "react-intl";
 import CommonRouter from "./CommonRouter";
 import NavBar from '@/components/NavBar';
-import { ApolloProvider, ApolloClient, HttpLink, ApolloLink, InMemoryCache, concat } from '@apollo/client';
+import { ApolloProvider, ApolloClient, HttpLink, ApolloLink, RequestHandler, InMemoryCache, from } from '@apollo/client';
+import { onError } from '@apollo/client/link/error';
 import { BrowserRouter as Router } from "react-router-dom";
 
 import {
@@ -17,10 +18,12 @@ const { API_ENDPOINT } = apiMeta
 
 const httpLink = new HttpLink({ uri: `${API_ENDPOINT}/graphql` });
 
-const generateClient = (authMiddleware: ApolloLink | undefined = undefined) => new ApolloClient({
+const generateClient = (...middleWares: (ApolloLink | RequestHandler)[]) => new ApolloClient({
   cache: new InMemoryCache(),
-  link: authMiddleware == undefined ? httpLink : concat(authMiddleware, httpLink),
+  link: middleWares.length == 0 ? httpLink : from([ ...middleWares, httpLink ]),
 });
+
+const TOKEN_EXPIRED = 'jwt expired';
 
 const App: FunctionComponent<any> = () => {
   const lang = useRecoilValue(langState);
@@ -30,17 +33,36 @@ const App: FunctionComponent<any> = () => {
     if (token !== undefined) {
       const { authorization, authorizationRefresh } = token
       const authMiddleware = new ApolloLink((operation, forward) => {
-        operation.setContext(({ headers = {} }) => ({
-          headers: {
-            ...headers,
-            [AUTHORIZATION_KEY]: withBearer(authorization),
-            [AUTHORIZATION_REFRESH_KEY]: withBearer(authorizationRefresh),
+        operation.setContext(({ headers = {} }) => {
+          console.log('default headers', headers)
+          return {
+            headers: {
+              ...headers,
+              [AUTHORIZATION_KEY]: withBearer(authorization),
+              [AUTHORIZATION_REFRESH_KEY]: withBearer(authorizationRefresh),
+            }
           }
-        }));
+        });
       
         return forward(operation);
       })
-      return generateClient(authMiddleware)
+
+      const refreshMiddleware = onError(({ graphQLErrors, operation, forward }) => {
+        if (graphQLErrors?.[0].message === TOKEN_EXPIRED) {
+          // const refresh = fromPromise(
+          //   client
+          //     .mutate({ mutation: REISSUANCE_ACCESS_TOKEN })
+          //     .then(({ data }) => {
+          //       return data.ReissuanceAccessToken.ok;
+          //     }),
+          // );
+      
+          // return refresh.filter((result) => result).flatMap(() => forward(operation));
+          return forward(operation);
+        }
+      });
+
+      return generateClient(authMiddleware, refreshMiddleware)
     } else {
       return generateClient()
     }
