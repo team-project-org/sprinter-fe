@@ -11,6 +11,7 @@ import PopOver from "@/components/PopOver";
 import Account from "@/components/Account";
 import { UserOutlined } from "@ant-design/icons";
 import { useRecoilValue } from "recoil";
+import { useAccount } from "@/hooks/useAccount";
 
 const { Header } = Layout;
 
@@ -60,7 +61,7 @@ const defaultMenus: any[] = Object.keys(routerMeta).reduce(
 const NavBar: FunctionComponent<INavBarProps> = (props) => {
 	const { formatMessage: fm } = useIntl();
 
-  const account = useRecoilValue(accountState);
+  const [account, error, loading] = useAccount();
   const location = useLocation();
 
   const savedAccount: any = useMemo(() => {

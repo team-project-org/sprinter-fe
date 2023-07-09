@@ -1,6 +1,7 @@
 import axiosInstance from '@/api/AxiosInstance';
 import { Account } from 'meta/accountMeta';
 import { gql, useQuery } from '@apollo/react-hooks';
+import { isEmpty } from '@/utils';
 
 const login = (username: string, password: string) =>
   axiosInstance
@@ -15,6 +16,10 @@ const login = (username: string, password: string) =>
       console.log('login res', res);
       console.log('authorization', authorization);
       console.log('authorization-refresh', authorizationRefresh);
+      if (!isEmpty(authorization)) {
+        axiosInstance.defaults.headers['Authorization'] = `${authorization}`
+        axiosInstance.defaults.headers['Authorization-refresh'] = `${authorizationRefresh}`
+      }
       return { ...data, authorization, authorizationRefresh };
     });
 
