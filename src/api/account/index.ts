@@ -1,5 +1,7 @@
 import axiosInstance from '@/api/AxiosInstance';
 import { Account } from 'meta/accountMeta';
+import { gql } from '@apollo/client';
+import { isEmpty } from '@/utils';
 
 const login = (username: string, password: string) =>
   axiosInstance
@@ -14,15 +16,23 @@ const login = (username: string, password: string) =>
       console.log('login res', res);
       console.log('authorization', authorization);
       console.log('authorization-refresh', authorizationRefresh);
+      if (!isEmpty(authorization)) {
+        axiosInstance.defaults.headers.authorization = `${authorization}`
+        axiosInstance.defaults.headers['authorization-refresh'] = `${authorizationRefresh}`
+      }
       return { ...data, authorization, authorizationRefresh };
     });
 
-const getAccount = () =>
-  axiosInstance.get('/user').then((res: any) => {
-    const { data } = res;
-    console.log('account data', data);
-    return data;
-  });
+const GET_ME_QUERY = gql`
+  query getMe {
+    getMe {
+      id
+      username
+      profile_name
+      role_type_list
+    }
+  }
+`;
 
 const register = (account: Account) => {
   console.log('register', account);
@@ -36,5 +46,5 @@ const register = (account: Account) => {
 export default {
   login,
   register,
-  getAccount,
+  GET_ME_QUERY,
 };
