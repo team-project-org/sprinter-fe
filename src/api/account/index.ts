@@ -1,6 +1,6 @@
 import axiosInstance from '@/api/AxiosInstance';
 import { Account } from 'meta/accountMeta';
-import { gql, useQuery } from '@apollo/react-hooks';
+import { gql } from '@apollo/client';
 import { isEmpty } from '@/utils';
 
 const login = (username: string, password: string) =>
@@ -24,7 +24,7 @@ const login = (username: string, password: string) =>
     });
 
 const GET_ACCOUNT_QUERY = gql`
-  query {
+  query getMember {
     getMember {
       id
       username

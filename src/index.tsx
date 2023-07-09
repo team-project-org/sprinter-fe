@@ -1,8 +1,6 @@
 import React from "react";
 import ReactDOM from 'react-dom/client';
-import { ApolloClient, InMemoryCache, ApolloProvider, ApolloLink } from '@apollo/client';
-import { setContext } from '@apollo/client/link/context';
-import { HttpLink } from '@apollo/client/link/http';
+import { ApolloProvider, ApolloClient, HttpLink, ApolloLink, InMemoryCache, concat } from '@apollo/client';
 import "./index.less";
 import App from "./App";
 import { RecoilRoot } from "recoil";
@@ -13,23 +11,23 @@ import { REFRESH_KEY } from "@/state/refreshToken";
 
 const { API_ENDPOINT } = apiMeta
 
-const authLink = setContext(() => {
-  const token = localStorage.getitem(JWT_KEY);
-  const refreshToken = localStorage.getitem(REFRESH_KEY);
-  return {
-    headers: {
-      Authorization : token,
-      ['Authorization-refresh'] : refreshToken,
-    }
-}})
+const httpLink = new HttpLink({ uri: `${API_ENDPOINT}/graphql` });
 
-const httpLink = new HttpLink({
-  uri: `${API_ENDPOINT}/graphql`
-});
+const authMiddleware = new ApolloLink((operation, forward) => {
+  operation.setContext(({ headers = {} }) => ({
+    headers: {
+      ...headers,
+      authorization: localStorage.getItem(JWT_KEY) || null,
+      ['authorization-refresh']: localStorage.getItem(REFRESH_KEY) || null,
+    }
+  }));
+
+  return forward(operation);
+})
 
 const client = new ApolloClient({
-  link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
+  link: concat(authMiddleware, httpLink),
 });
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);

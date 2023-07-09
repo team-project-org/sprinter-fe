@@ -6,11 +6,9 @@ import { routerMeta } from "@/meta";
 import { Link, useLocation } from "react-router-dom";
 import LanguageSelector from "@/components/LanguageSelector";
 import { assignRouteArrayProps, isEmpty } from "@/utils";
-import accountState from '@/state/account';
 import PopOver from "@/components/PopOver";
 import Account from "@/components/Account";
 import { UserOutlined } from "@ant-design/icons";
-import { useRecoilValue } from "recoil";
 import { useAccount } from "@/hooks/useAccount";
 
 const { Header } = Layout;
@@ -62,6 +60,7 @@ const NavBar: FunctionComponent<INavBarProps> = (props) => {
 	const { formatMessage: fm } = useIntl();
 
   const [account, error, loading] = useAccount();
+
   const location = useLocation();
 
   const savedAccount: any = useMemo(() => {
