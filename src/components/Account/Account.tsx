@@ -2,40 +2,39 @@ import React, { FunctionComponent, useCallback, useMemo } from 'react';
 import { Badge, Card, Spin, Avatar } from 'antd';
 import FlexCenter from '@/components/FlexCenter';
 import SignIn from '@/components/SignIn';
+import account from '@/api/account';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { token as tokenState, account as accountState } from '@/state';
 import { LogoutOutlined, UserOutlined } from '@ant-design/icons';
-
-
 import { useNavigate } from 'react-router-dom';
 import isEmpty from '@/utils/isEmpty';
-import { JWT_KEY } from '@/state/token';
+
+const { setToken } = account
 
 interface IAccountProps {
 }
 
 const Account: FunctionComponent<IAccountProps> = () => {
 
-  const [token, setToken] = useRecoilState(tokenState)
+  const [token, setRecoilToken] = useRecoilState(tokenState)
   const account = useRecoilValue(accountState)
   const navigate = useNavigate();
 
   const logout = useCallback(() => {
-    localStorage.removeItem(JWT_KEY)
-    setToken('')
+    setToken(undefined, undefined)
+    setRecoilToken(undefined)
     navigate("/");
-  }, [navigate, setToken])
+  }, [navigate, setRecoilToken])
   
   const assignRenderer = useMemo(() => {
-    console.log('account', account)
     if (isEmpty(token)) {
       return <SignIn />
     } else if (isEmpty(account)) {
       return <Spin size={'small'} />
     } else {
-      const { username, profile_name } = account
+      const { username, profile_name, role_type_list } = account
       return (
-				<Badge.Ribbon text={"안녕하세요"}>
+				<Badge.Ribbon text={role_type_list.join(" ")}>
 					<Card
             title={<FlexCenter>
               <Avatar icon={<UserOutlined />} />

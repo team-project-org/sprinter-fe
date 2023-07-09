@@ -4,7 +4,6 @@ import { useIntl } from "react-intl";
 import { routerMeta } from "@/meta";
 
 import { Link, useLocation } from "react-router-dom";
-import LanguageSelector from "@/components/LanguageSelector";
 import { assignRouteArrayProps, isEmpty } from "@/utils";
 import PopOver from "@/components/PopOver";
 import Account from "@/components/Account";
@@ -59,7 +58,7 @@ const defaultMenus: any[] = Object.keys(routerMeta).reduce(
 const NavBar: FunctionComponent<INavBarProps> = (props) => {
 	const { formatMessage: fm } = useIntl();
 
-  const [account, error, loading] = useAccount();
+  const [account] = useAccount();
 
   const location = useLocation();
 

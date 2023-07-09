@@ -1,10 +1,15 @@
 import { atom } from "recoil";
+import { account } from "@/api";
+const { getToken } = account
 
-export const JWT_KEY = "jwt"
+export interface ITokenInterface {
+  authorization: string,
+  authorizationRefresh: string
+}
 
-const tokenState = atom<string>({
+const tokenState = atom<ITokenInterface | undefined>({
   key: 'tokenState',
-  default: localStorage.getItem(JWT_KEY) || ""
+  default: getToken(),
 });
 
 export default tokenState

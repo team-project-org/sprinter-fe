@@ -1,7 +1,6 @@
 import axios from 'axios';
 import createAuthRefreshInterceptor from 'axios-auth-refresh';
 import { apiMeta } from "@/meta";
-import { JWT_KEY } from '@/state/token';
 
 const { API_ENDPOINT } = apiMeta
 
@@ -11,21 +10,12 @@ const APIConfig = {
   headers: { 'Content-Type': 'application/json' },
 };
 
-const getAccessToken = () => localStorage.getItem('jwt');
-
 const axiosInstance = axios.create(APIConfig);
 axiosInstance.interceptors.request.use((request: any) => {
-  try {
-    const token: string | null = getAccessToken();
-    if (token) {
-      request.headers['Authorization'] = `Bearer ${token}`;
-    }
-  } catch (e) {}
   return request;
 });
 
 const refreshAuthLogic = (failedRequest: any) => {
-  localStorage.removeItem(JWT_KEY);
   return Promise.resolve();
 };
 
