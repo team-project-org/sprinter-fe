@@ -39,7 +39,7 @@ const App: FunctionComponent<any> = () => {
             headers: {
               ...headers,
               [AUTHORIZATION_KEY]: withBearer(authorization),
-              [AUTHORIZATION_REFRESH_KEY]: withBearer(authorizationRefresh),
+              // [AUTHORIZATION_REFRESH_KEY]: withBearer(authorizationRefresh),
             }
           }
         });
@@ -48,6 +48,8 @@ const App: FunctionComponent<any> = () => {
       })
 
       const refreshMiddleware = onError(({ graphQLErrors, operation, forward }) => {
+        console.log('graphQLErrors', graphQLErrors)
+        console.log('operation', operation)
         if (graphQLErrors?.[0].message === TOKEN_EXPIRED) {
           // const refresh = fromPromise(
           //   client
