@@ -54,8 +54,8 @@
     "ts-enum-util": "^4.0.2"
   },
   "scripts": {
-    "start": "craco start",
-    "build": "craco build",
+    "start": "craco start && npm run codegen -w",
+    "build": "npm run codegen && craco build",
     "test": "craco test",
     "codegen": "graphql-codegen",
     "docker-build": "docker build -t dongho1596/sprinter-fe .",
