@@ -86,6 +86,7 @@
     "jsx-a11y/label-has-associated-control": "off",
     "react/no-children-prop": "off",
     "react/jsx-uses-react": "error",
-    "react/jsx-uses-vars": "error"
+    "react/jsx-uses-vars": "error",
+    "import/export": "error"
   }
 }
