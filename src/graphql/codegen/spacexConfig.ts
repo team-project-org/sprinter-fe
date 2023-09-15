@@ -1,30 +1,8 @@
 import { CodegenConfig } from '@graphql-codegen/cli';
-import { spacexURL } from '../../graphql/ApolloClients';
+import gqlConfigGenerator from './gqlGenerator';
 
-const spacexConfig: CodegenConfig = {
-  schema: spacexURL,
-  documents: [
-    'src/**/*.graphql',
-    '!src/**/*.sw.graphql',
-    '!src/**/*.countries.graphql',
-    '!src/**/*.pf.graphql',
-  ],
-  overwrite: true,
-  generates: {
-    'src/graphql/generated/spacex.ts': {
-      plugins: [
-        'typescript',
-        'typescript-operations',
-        'typescript-react-apollo',
-      ],
-      config: {
-        apolloReactHooksImportFrom: '../CustomApolloHooks',
-      },
-    },
-    'src/graphql/generated/spacex.schema.json': {
-      plugins: ['introspection'],
-    },
-  },
-};
+export const spacexPrefix = "spacex"
+export const spacexURL = "https://spacex-production.up.railway.app/";
+const spacexConfig: CodegenConfig = gqlConfigGenerator(spacexPrefix, spacexURL)
 
 export default spacexConfig;

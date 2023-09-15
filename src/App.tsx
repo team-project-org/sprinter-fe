@@ -1,7 +1,7 @@
 import React from 'react';
-import { CountriesSection } from 'components/CountriesSection/CountriesSection';
-import { SpacexSection } from 'components/SpacexSection/SpacexSection';
-import { StarWarsSection } from 'components/StarWarsSection/StarWarsSection';
+import { CountriesSection } from '@/components/CountriesSection/CountriesSection';
+import { SpacexSection } from '@/components/SpacexSection/SpacexSection';
+import { StarWarsSection } from '@/components/StarWarsSection/StarWarsSection';
 import { Button, Card } from 'antd';
 
 export const App: React.FC = () => {

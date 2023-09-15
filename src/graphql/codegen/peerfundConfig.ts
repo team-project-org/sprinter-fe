@@ -1,30 +1,8 @@
 import { CodegenConfig } from '@graphql-codegen/cli';
-import { API, peerfundURL } from '../ApolloClients';
+import gqlConfigGenerator from './gqlGenerator';
 
-const peerfundConfig: CodegenConfig = {
-  schema: peerfundURL,
-  documents: 'src/**/*.pf.graphql',
-  overwrite: true,
-  generates: {
-    'src/graphql/generated/peerfund.ts': {
-      plugins: [
-        'typescript',
-        'typescript-operations',
-        'typescript-react-apollo',
-      ],
-      config: {
-        apolloReactHooksImportFrom: '../CustomApolloHooks',
-        defaultBaseOptions: {
-          context: {
-            clientName: API.Peerfund,
-          },
-        },
-      },
-    },
-    'src/graphql/generated/peerfund.schema.json': {
-      plugins: ['introspection'],
-    },
-  },
-};
+export const peerfundPrefix = "peerfund";
+export const peerfundURL = "http://13.124.178.210:9090/graphql";
+const peerfundConfig: CodegenConfig = gqlConfigGenerator(peerfundPrefix, peerfundURL)
 
 export default peerfundConfig;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useGetAllContinentsQuery } from 'graphql/generated/countries';
+import { useGetAllContinentsQuery } from '@/graphql/generated/countries';
 
 export const CountriesSection: React.FC = () => {
   const { data, loading } = useGetAllContinentsQuery();

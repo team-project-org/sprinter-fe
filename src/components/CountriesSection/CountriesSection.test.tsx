@@ -2,8 +2,8 @@ import { render, screen } from '@testing-library/react';
 import { MockedProvider } from '@apollo/client/testing';
 import { act } from 'react-dom/test-utils';
 import { wait } from '@testing-library/user-event/dist/utils';
-import { CountriesSection } from './CountriesSection';
-import { GetAllContinentsDocument } from 'graphql/generated/countries';
+import { CountriesSection } from '@/components/CountriesSection/CountriesSection';
+import { GetAllContinentsDocument } from '@/graphql/generated/countries';
 import React from 'react';
 
 const firstEntry = {

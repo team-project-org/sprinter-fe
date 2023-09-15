@@ -1,35 +1,18 @@
-import { ApolloClient, InMemoryCache } from "@apollo/client";
+import { ApolloClient, InMemoryCache, NormalizedCacheObject } from "@apollo/client";
+import { spacexPrefix, spacexURL } from '@/graphql/codegen/spacexConfig'
+import { countiresPrefix, countriesURL } from '@/graphql/codegen/countriesConfig'
+import { starWasPrefix, starWarsURL } from '@/graphql/codegen/starwarsConfig'
+import { peerfundPrefix, peerfundURL } from '@/graphql/codegen/peerfundConfig'
 
-export enum API {
-  SpaceX = "SpaceX",
-  StarWars = "StarWars",
-  Countries = "Countries",
-  Peerfund = "Peerfund",
+const apolloClientGenerator = (uri: string) => new ApolloClient({ uri, cache: new InMemoryCache() });
+
+const clientMap: {
+  [key: string]: ApolloClient<NormalizedCacheObject>
+} = {
+  [spacexPrefix]: apolloClientGenerator(spacexURL),
+  [countiresPrefix]: apolloClientGenerator(countriesURL),
+  [starWasPrefix]: apolloClientGenerator(starWarsURL),
+  [peerfundPrefix]: apolloClientGenerator(peerfundURL),
 }
 
-export const spacexURL = "https://spacex-production.up.railway.app/";
-export const starWarsURL =
-  "https://swapi-graphql.netlify.app/.netlify/functions/index";
-export const countriesURL = "https://countries.trevorblades.com/graphql";
-export const peerfundURL = "http://13.124.178.210:9090/graphql";
-
-export const spacexApolloClient = new ApolloClient({
-  uri: spacexURL,
-  cache: new InMemoryCache(),
-});
-
-export const starWarsApolloClient = new ApolloClient({
-  uri: starWarsURL,
-  cache: new InMemoryCache(),
-});
-
-export const countriesApolloClient = new ApolloClient({
-  uri: countriesURL,
-  cache: new InMemoryCache(),
-});
-
-export const peerfundApolloClient = new ApolloClient({
-  uri: countriesURL,
-  cache: new InMemoryCache(),
-});
-
+export default clientMap

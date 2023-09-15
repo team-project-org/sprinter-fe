@@ -1,30 +1,8 @@
 import { CodegenConfig } from '@graphql-codegen/cli';
-import { API, countriesURL } from '../../graphql/ApolloClients';
+import gqlConfigGenerator from './gqlGenerator';
 
-const countriesConfig: CodegenConfig = {
-  schema: countriesURL,
-  documents: 'src/**/*.countries.graphql',
-  overwrite: true,
-  generates: {
-    'src/graphql/generated/countries.ts': {
-      plugins: [
-        'typescript',
-        'typescript-operations',
-        'typescript-react-apollo',
-      ],
-      config: {
-        apolloReactHooksImportFrom: '../CustomApolloHooks',
-        defaultBaseOptions: {
-          context: {
-            clientName: API.Countries,
-          },
-        },
-      },
-    },
-    'src/graphql/generated/countries.schema.json': {
-      plugins: ['introspection'],
-    },
-  },
-};
+export const countiresPrefix = "countries"
+export const countriesURL = "https://countries.trevorblades.com/graphql";
+const countriesConfig: CodegenConfig = gqlConfigGenerator(countiresPrefix, countriesURL)
 
 export default countriesConfig;

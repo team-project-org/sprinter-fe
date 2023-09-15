@@ -1,5 +1,5 @@
 import React from 'react';
-import { useGetAllPlanetsQuery } from '../../graphql/generated/starwars';
+import { useGetAllPlanetsQuery } from '@/graphql/generated/sw';
 import './StarWarsSection.css';
 
 export const StarWarsSection: React.FC = () => {

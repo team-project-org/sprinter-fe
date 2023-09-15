@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { MockedProvider } from '@apollo/client/testing';
 import { act } from 'react-dom/test-utils';
 import { wait } from '@testing-library/user-event/dist/utils';
-import { GetAllPlanetsDocument } from '../../graphql/generated/starwars';
+import { GetAllPlanetsDocument } from '@/graphql/generated/sw';
 import { StarWarsSection } from './StarWarsSection';
 
 const firstEntry = {
