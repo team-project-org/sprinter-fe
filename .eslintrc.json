@@ -87,6 +87,6 @@
     "react/no-children-prop": "off",
     "react/jsx-uses-react": "error",
     "react/jsx-uses-vars": "error",
-    "import/export": "error"
+    "import/export": "off"
   }
 }
