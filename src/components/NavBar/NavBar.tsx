@@ -55,8 +55,6 @@ const defaultMenus: any[] = Object.keys(routerMeta).reduce(
 );
 
 const NavBar: FunctionComponent<INavBarProps> = (props) => {
-	const { formatMessage: fm } = useIntl();
-
   const [account] = useAccount();
 
   const location = useLocation();
@@ -92,7 +90,7 @@ const NavBar: FunctionComponent<INavBarProps> = (props) => {
 					cursor: "pointer",
 				}}
 			>
-				{fm({ id: "title" })}
+				스프린터
 			</div>
 			<Menu
 				theme="dark"
