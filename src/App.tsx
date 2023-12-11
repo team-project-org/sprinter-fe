@@ -3,10 +3,14 @@ import { CountriesSection } from '@/components/CountriesSection/CountriesSection
 import { SpacexSection } from '@/components/SpacexSection/SpacexSection';
 import { StarWarsSection } from '@/components/StarWarsSection/StarWarsSection';
 import { Button, Card } from 'antd';
+import NavBar from '@/components/NavBar';
+import CommonRouter from '@/CommonRouter';
+import ProjectList from './components/ProjectList';
 
 export const App: React.FC = () => {
   return (
     <div>
+      <ProjectList></ProjectList>
       <Button type="primary">Button</Button>
       <Card title="Card title" bordered={false} style={{ width: 300 }}>
         <p>Card content</p>

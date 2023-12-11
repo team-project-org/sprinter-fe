@@ -5,7 +5,7 @@ import { fullColumn } from './meta';
 import { Form, Select, Input } from 'antd';
 const { TextArea } = Input;
 
-const ApplyForm = (props) => {
+const ApplyForm = (props: any) => {
   const { ...rest } = props;
   return (
     <CommonForm formCols={fullColumn} {...rest}>
