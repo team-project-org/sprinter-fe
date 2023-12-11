@@ -1,4 +1,3 @@
-export { default as lang } from './lang'
 export { default as account } from './account'
 export { default as token } from './token'
 export { default as category } from './category'
