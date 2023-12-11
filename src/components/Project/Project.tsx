@@ -1,12 +1,10 @@
 import { Avatar, Card } from 'antd';
 import React, { FunctionComponent, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import generateIndexImage from '@/utils/generateIndexImage';
-import Heart from 'react-heart';
 import palette from '@/style/palette';
 import Title from './ProjectTitle';
 import ProjectWrapper from './ProjectWrapper';
-import FlexCenter from '../FlexCenter';
+import FlexCenter from '@/components/FlexCenter';
 
 interface IProjectProps {
   id?: any;
@@ -22,11 +20,6 @@ const { Meta } = Card;
 
 const Project: FunctionComponent<IProjectProps> = (props) => {
   const { id, title, date, imageUrl, author, authorImageUrl } = props;
-  const navigate = useNavigate();
-
-  const onClickProject = (projectId: string) => {
-    navigate(`/project/${projectId}`);
-  };
 
   const [like, setLike] = useState(false);
 
@@ -49,9 +42,6 @@ const Project: FunctionComponent<IProjectProps> = (props) => {
             }}
           />
         }
-        onClick={() => {
-          onClickProject(id);
-        }}
       >
         <Title>{title}</Title>
         <span>{date}</span>
@@ -61,22 +51,6 @@ const Project: FunctionComponent<IProjectProps> = (props) => {
               <Avatar src={authorImageUrl || generateIndexImage(id)} />
               <span style={{ marginLeft: 5, fontWeight: 'bold' }}>{author}</span>
             </div>
-          }
-          description={
-            <FlexCenter
-              onClick={(e: any) => {
-                e.preventDefault();
-                e.stopPropagation();
-              }}
-            >
-              <Heart
-                style={{ width: 28 }}
-                activeColor={primary}
-                inactiveColor={primary}
-                isActive={like}
-                onClick={() => setLike(!like)}
-              />
-            </FlexCenter>
           }
         />
       </Card>

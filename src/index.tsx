@@ -1,18 +1,19 @@
-import React from "react";
+import React from 'react';
 import ReactDOM from 'react-dom/client';
-import "./index.less";
-import App from "./App";
-import { RecoilRoot } from "recoil";
-import * as serviceWorker from "./serviceWorker";
+import '@/index.less';
+import { App } from '@/App';
+import reportWebVitals from '@/reportWebVitals';
+import { ApolloMultiClientProvider } from '@/Provider/ApolloMultiClientProvider';
 
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+const root = ReactDOM.createRoot(
+  document.getElementById('root') as HTMLElement
+);
 root.render(
-  <React.StrictMode>
-    <RecoilRoot>
+  <ApolloMultiClientProvider>
+    <React.StrictMode>
       <App />
-    </RecoilRoot>
-  </React.StrictMode>,
-  document.getElementById("root")
+    </React.StrictMode>
+  </ApolloMultiClientProvider>
 );
 
-serviceWorker.unregister();
+reportWebVitals();

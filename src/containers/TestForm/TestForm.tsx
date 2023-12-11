@@ -13,7 +13,7 @@ const typeOptions = $enum(FormType)
 const initValue = typeOptions?.[0].value;
 
 const TestForm: React.FunctionComponent<ITestFormProps> = (props) => {
-  const [formType, setFormType] = useState<string>(initValue);
+  const [formType, setFormType] = useState(initValue);
   const FormComp: FunctionComponent<any> | undefined = FormSelector(FormType[formType]);
   return (
     <DefaultLayout>

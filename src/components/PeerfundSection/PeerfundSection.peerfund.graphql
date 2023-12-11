@@ -1,0 +1,8 @@
+query getMe {
+  getMe {
+    id
+    username
+    profile_name
+    role_type_list
+  }
+}

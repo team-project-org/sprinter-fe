@@ -7,8 +7,7 @@ import FlexCenter from "@/components/FlexCenter";
 
 interface ICustomRotuerProps {}
 
-const lazyImport = (containerName: string) =>
-	lazy(() => import(`@/containers/${containerName}`));
+const lazyImport = (containerName: string) => lazy(() => import(`./containers/${containerName}`));
 
 interface AssignRoute {
 	Comp: any;

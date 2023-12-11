@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import palette from '@/style/palette';
 import { Space, Tag, Spin, Segmented } from 'antd';
@@ -36,8 +35,6 @@ const ColoredH1 = styled.h1`
   }
 `;
 
-interface IProjectListProps {}
-
 const tagsData = ['기획자', '디자이너', '프론트엔드', '백엔드', '기타'];
 const orderList = ['전체', '최신순', '인기순'];
 
@@ -48,12 +45,6 @@ const ProjectList = () => {
     const nextSelectedTags = checked ? [...selectedTags, tag] : selectedTags.filter((t) => t !== tag);
     console.log('You are interested in: ', nextSelectedTags);
     setSelectedTags(nextSelectedTags);
-  };
-
-  const navigate = useNavigate();
-
-  const onClickProject = (projectId: string) => {
-    navigate(`/project/${projectId}`);
   };
 
   const [projects, setProjects] = useState(pojectList);
@@ -89,7 +80,7 @@ const ProjectList = () => {
         </div>
       </div>
 
-      <InfiniteScroll
+      {/* <InfiniteScroll
         dataLength={projects.length}
         next={fetchData}
         hasMore={true}
@@ -98,24 +89,24 @@ const ProjectList = () => {
             <Spin />
           </FlexCenter>
         }
-      >
-        <ProjectListDiv>
-          {projects.map((item, index) => {
-            const { img, title, author, author_img, date } = item;
-            return (
-              <Project
-                key={index}
-                imageUrl={img}
-                id={index}
-                title={title}
-                date={date}
-                author={author}
-                authorImageUrl={author_img}
-              />
-            );
-          })}
-        </ProjectListDiv>
-      </InfiniteScroll>
+      > */}
+      <ProjectListDiv>
+        {projects.map((item, index) => {
+          const { img, title, author, author_img, date } = item;
+          return (
+            <Project
+              key={index}
+              imageUrl={img}
+              id={index}
+              title={title}
+              date={date}
+              author={author}
+              authorImageUrl={author_img}
+            />
+          );
+        })}
+      </ProjectListDiv>
+      {/* </InfiniteScroll> */}
     </div>
   );
 };
