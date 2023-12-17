@@ -41,7 +41,7 @@
   "scripts": {
     "start": "npm run update-graphql -- --watch && npm run serve",
     "serve": "craco start",
-    "build": "craco build",
+    "build": "npm run update-graphql && craco build",
     "test": "craco test",
     "eject": "react-scripts eject",
     "docker-build": "docker build -t dongho1596/sprinter-fe .",
