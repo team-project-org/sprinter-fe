@@ -2,7 +2,7 @@ FROM node:lts-buster-slim as builder
 RUN mkdir /app
 WORKDIR /app
 ADD . /app
-RUN npm install --legacy-peer-deps
+RUN npm install
 RUN npm run build
 
 FROM nginx
