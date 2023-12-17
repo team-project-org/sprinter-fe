@@ -1,27 +1,14 @@
 import React from 'react';
-import { CountriesSection } from '@/components/CountriesSection/CountriesSection';
-import { SpacexSection } from '@/components/SpacexSection/SpacexSection';
-import { StarWarsSection } from '@/components/StarWarsSection/StarWarsSection';
-import { Button, Card } from 'antd';
-import ProjectList from './components/ProjectList';
+
+import CommonRouter from '@/CommonRouter';
+import NavBar from '@/components/NavBar';
+import FlexCenter from '@/components/FlexCenter';
 
 export const App: React.FC = () => {
   return (
-    <div>
-      <ProjectList />
-      <Button type="primary">Button</Button>
-      <Card title="Card title" bordered={false} style={{ width: 300 }}>
-        <p>Card content</p>
-        <p>Card content</p>
-        <p>Card content</p>
-      </Card>
-      <h1>React Multiple Apollo Clients</h1>
-      <hr />
-      <SpacexSection />
-      <hr />
-      <StarWarsSection />
-      <hr />
-      <CountriesSection />
+    <div style={{ flexDirection: 'column', display: 'flex' }}>
+      <NavBar />
+      <CommonRouter />
     </div>
   );
 };

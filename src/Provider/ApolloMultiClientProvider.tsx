@@ -18,7 +18,7 @@ export const ApolloMultiClientProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
   const getClient = (clientName: string) => {
-    return ClientMap[clientName]!!
+    return ClientMap[clientName]
   };
 
   return (

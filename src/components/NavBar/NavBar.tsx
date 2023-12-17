@@ -7,8 +7,6 @@ import { assignRouteArrayProps, isEmpty } from "@/utils";
 import PopOver from "@/components/PopOver";
 import Account from "@/components/Account";
 import { UserOutlined } from "@ant-design/icons";
-import { useAccount } from "@/hooks/useAccount";
-
 const { Header } = Layout;
 
 interface INavBarProps {}
@@ -55,30 +53,7 @@ const defaultMenus: any[] = Object.keys(routerMeta).reduce(
 );
 
 const NavBar: FunctionComponent<INavBarProps> = (props) => {
-  const [account] = useAccount();
-
   const location = useLocation();
-
-  const savedAccount: any = useMemo(() => {
-    if (isEmpty(account)) {
-      return undefined;
-    }
-    return account;
-  }, [account]);
-
-  const assignMenus = useMemo(
-    () =>
-      defaultMenus.filter(({ account, path }) => {
-        if (account) {
-          return !!savedAccount;
-        } else if (account === undefined) {
-          return true;
-        } else {
-          return !savedAccount;
-        }
-      }),
-    [savedAccount],
-  );
 
 	return (
 		<Header className="header" style={{ display: "flex" }}>
@@ -106,7 +81,7 @@ const NavBar: FunctionComponent<INavBarProps> = (props) => {
 						</Link>
 					</Menu.Item>
 				))}
-        <div style={{ opacity: 1, marginLeft: 'auto', order: assignMenus.length + 2 }}>
+        <div style={{ opacity: 1, marginLeft: 'auto', order: defaultMenus.length + 2 }}>
           <PopOver
             buttonProps={
               {

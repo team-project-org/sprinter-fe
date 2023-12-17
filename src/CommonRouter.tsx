@@ -4,10 +4,11 @@ import { routerMeta } from "@/meta";
 import { assignRouteArrayProps } from "@/utils";
 import NotFound from "@/components/NotFound";
 import FlexCenter from "@/components/FlexCenter";
+import loadable from "@loadable/component";
 
 interface ICustomRotuerProps {}
 
-const lazyImport = (containerName: string) => lazy(() => import(`./containers/${containerName}`));
+const lazyImport = (containerName: string) => loadable(() => import(`./containers/${containerName}`));
 
 interface AssignRoute {
 	Comp: any;
@@ -26,15 +27,30 @@ const assignRouter: AssignRoute[] = Object.keys(routerMeta).map(
 
 const CommonRouter: FunctionComponent<ICustomRotuerProps> = (props) => {
 	return (
-		<Routes>
-			{assignRouter.map(({ Comp, propsArr }) => {
-				if (Array.isArray(propsArr)) {
-					return propsArr.map((props) => {
+		<div style={{ overflow: 'auto', height: '100%' }}>
+			<Routes>
+				{assignRouter.map(({ Comp, propsArr }) => {
+					if (Array.isArray(propsArr)) {
+						return propsArr.map((props) => {
+							return (
+								<Route
+									key={props.path}
+									path={props.path}
+									{...props}
+									element={
+										<Suspense fallback={<FlexCenter>Loading...</FlexCenter>}>
+											<Comp />
+										</Suspense>
+									}
+								/>
+							);
+						});
+					} else {
 						return (
 							<Route
-								key={props.path}
-								path={props.path}
-								{...props}
+								key={propsArr.path}
+								path={propsArr.path}
+								{...propsArr}
 								element={
 									<Suspense fallback={<FlexCenter>Loading...</FlexCenter>}>
 										<Comp />
@@ -42,24 +58,11 @@ const CommonRouter: FunctionComponent<ICustomRotuerProps> = (props) => {
 								}
 							/>
 						);
-					});
-				} else {
-					return (
-						<Route
-							key={propsArr.path}
-							path={propsArr.path}
-							{...propsArr}
-							element={
-								<Suspense fallback={<FlexCenter>Loading...</FlexCenter>}>
-									<Comp />
-								</Suspense>
-							}
-						/>
-					);
-				}
-			})}
-			<Route path="*" element={<NotFound />} />
-		</Routes>
+					}
+				})}
+				<Route path="*" element={<NotFound />} />
+			</Routes>
+		</div>
 	);
 };
 
