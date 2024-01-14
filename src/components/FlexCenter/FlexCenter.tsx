@@ -16,9 +16,7 @@ const FlexCenter: any = styled.div`
   -moz-flex-direction: row;
   -ms-flex-direction: row;
   -o-flex-direction: row;
-  flex-direction: row;
-  
-  ${(props: Props) => propsToStyle(props.style || {})}
+  flex-direction: row;  
 `
 
 export default FlexCenter

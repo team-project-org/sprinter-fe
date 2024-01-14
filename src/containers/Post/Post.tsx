@@ -2,12 +2,11 @@ import React, { FunctionComponent, useCallback, useEffect } from "react";
 import { Form, Input, Button } from "antd";
 import DefaultLayout from "@/components/DefaultLayout";
 import { post } from "@/api";
-import { useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { CreatePostInput } from "@/meta/postMeta";
 import { useRecoilValue } from "recoil";
 import accountState from "@/state/account";
-import dateToTimestamp from '../../utils/dateToTimestamp';
+import dateToTimestamp from '@/utils/dateToTimestamp';
 
 const { CREATE_POST } = post;
 
