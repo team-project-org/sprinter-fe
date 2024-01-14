@@ -1,10 +1,9 @@
 import React, { FunctionComponent, CSSProperties, useEffect, useState } from "react";
 import DefaultLayout from "@/components/DefaultLayout";
 import axios from "axios";
-import { NotionRenderer } from "react-notion";
+import { NotionRenderer } from "react-notion-x";
 import 'react-notion/src/styles.css';
 import 'prismjs/themes/prism-tomorrow.css'; 
-import FlexCenter from "@/components/FlexCenter";
 
 interface ICardViewProps {}
 
@@ -27,7 +26,7 @@ const NotionTest: FunctionComponent<ICardViewProps> = (props) => {
   return (
     <DefaultLayout>
       {response && <div style={{ maxWidth: 768 }}>
-        <NotionRenderer hideHeader={true} blockMap={response} fullPage={true} />
+        <NotionRenderer disableHeader={true} recordMap={response} fullPage={true} />
       </div>}
     </DefaultLayout>
   );
