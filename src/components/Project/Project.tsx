@@ -4,7 +4,6 @@ import generateIndexImage from '@/utils/generateIndexImage';
 import palette from '@/style/palette';
 import Title from './ProjectTitle';
 import ProjectWrapper from './ProjectWrapper';
-import FlexCenter from '@/components/FlexCenter';
 
 interface IProjectProps {
   id?: any;
